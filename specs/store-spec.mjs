@@ -11,6 +11,9 @@ class ValidStore extends Store {
     get extended() {
         return super.extended;
     }
+    get exists() {
+        return super.exists;
+    }
 }
 describe('when constructing stores given metadata and secure context', () => {
     it(`should get the same data for the same metadata and secure context`, () => {
@@ -137,7 +140,7 @@ describe('when constructing stores given metadata and secure context', () => {
             console.log(error);
             expect(error).toBeDefined();
             expect(error).not.toBeNull();
-            expect(error.message).toBe(`${InvalidStore.name} requires overriding get() and set() methods and an overriding get property called extended.`);
+            expect(error.message).toBe(`${InvalidStore.name} requires overriding get() and set() methods and an overriding get properties called extended and exists.`);
         }
     });
     it(`should raise an error if the secure context is not an object`, () => {

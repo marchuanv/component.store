@@ -8,6 +8,7 @@ describe('when registering a type', () => {
         try {
             const typeRegister = new Type_TypeRegister(name);
             try {
+                typeRegister.set(undefined);
                 typeRegister.get(undefined);
             } catch (error) {
                 expect(error.message).toBe('The data argument is null, undefined or not an instance of undefined');
@@ -33,6 +34,7 @@ describe('when registering a type', () => {
         try {
             const typeRegister = new Type_TypeRegister(name);
             try {
+                typeRegister.set(null);
                 typeRegister.get(null);
             } catch (error) {
                 expect(error.message).toBe('The data argument is null, undefined or not an instance of null');
@@ -58,7 +60,7 @@ describe('when registering a type', () => {
             try {
                 const typeRegister = new Type_TypeRegister(type);
                 try {
-                    typeRegister.get(null);
+                    typeRegister.get(Object.prototype);
                 } catch (error) {
                     expect(error.message).toBe('The data argument is null, undefined or not an instance of null');
                 }
@@ -83,7 +85,7 @@ describe('when registering a type', () => {
         try {
             const typeRegister = new Type_TypeRegister(Dog);
             try {
-                typeRegister.get(null);
+                typeRegister.get(Object.prototype);
             } catch (error) {
                 expect(error.message).toBe('The data argument is null, undefined or not an instance of null');
             }
@@ -121,7 +123,7 @@ describe('when registering a type', () => {
             expect(typeRegister.typeName).toBe(Animal.name);
 
             typeRegister.set({ data: 'some data' })
-            const data = typeRegister.get(Object);
+            const data = typeRegister.get(Object.prototype);
 
             expect(data).toBeDefined();
             expect(data).not.toBeNull();
