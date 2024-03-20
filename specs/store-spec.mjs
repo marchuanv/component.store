@@ -21,8 +21,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            const store1 = new ValidStore(metadata, secureContext, schema);
-            const store2 = new ValidStore(metadata, secureContext, schema);
+            const store1 = new ValidStore(metadata, secureContext, schema, { data: {} });
+            const store2 = new ValidStore(metadata, secureContext, schema, { data: {} });
 
             store1.set({ data: 'Data1' }, secureContext);
             store2.set({ data: 'Data2' }, secureContext);
@@ -47,8 +47,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata2 = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            const store1 = new ValidStore(metadata1, secureContext, schema);
-            const store2 = new ValidStore(metadata2, secureContext, schema);
+            const store1 = new ValidStore(metadata1, secureContext, schema, { data: {} });
+            const store2 = new ValidStore(metadata2, secureContext, schema, { data: {} });
 
             store1.set({ data: 'Data1' }, secureContext);
             store2.set({ data: 'Data2' }, secureContext);
@@ -75,8 +75,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            const store1 = new ValidStore(metadata, secureContextA, schema);
-            const store2 = new ValidStore(metadata, secureContextA, schema);
+            const store1 = new ValidStore(metadata, secureContextA, schema, { data: {} });
+            const store2 = new ValidStore(metadata, secureContextA, schema, { data: {} });
             expect(store1).toBe(store2);
 
             store1.set({ data: 'Data1' }, secureContextA);
@@ -105,8 +105,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            const store1 = new ValidStore(metadata, secureContextA, schema);
-            const store2 = new ValidStore(metadata, secureContextA, schema);
+            const store1 = new ValidStore(metadata, secureContextA, schema, { data: {} });
+            const store2 = new ValidStore(metadata, secureContextA, schema, { data: {} });
             expect(store1).toBe(store2);
 
             store1.set({ data: 'Data1' }, secureContextA);
@@ -134,13 +134,13 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            new InvalidStore(metadata, secureContext, schema);
+            new InvalidStore(metadata, secureContext, schema, { data: {} });
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
             expect(error).toBeDefined();
             expect(error).not.toBeNull();
-            expect(error.message).toBe(`${InvalidStore.name} requires overriding get() and set() methods and an overriding get properties called extended and exists.`);
+            expect(error.message).toBe(`The ${InvalidStore.name} class requires a get method.`);
         }
     });
     it(`should raise an error if the secure context is not an object`, () => {
@@ -148,7 +148,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            new ValidStore(metadata, invalidSecureContext, schema);
+            new ValidStore(metadata, invalidSecureContext, schema, { data: {} });
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
@@ -163,7 +163,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const metadata = { Id: crypto.randomUUID() };
         const schema = { data: 'object' };
         try {
-            const store = new ValidStore(metadata, secureContext, schema);
+            const store = new ValidStore(metadata, secureContext, schema, { data: {} });
             store.set('some data', invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
