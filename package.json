@@ -1,0 +1,35 @@
+{
+    "name": "component.uuid",
+    "description": "The following class represents a GUID (Globally Unique Identifier) object, providing functionality for creating and validating GUIDs based on provided metadata.",
+    "version": "1.0.0",
+    "author": "Marchuan Van Der Merwe",
+    "type": "module",
+    "main": "registry.mjs",
+    "license": "LGPL-3.0-or-later",
+    "engines": {
+        "node": "18.16.1",
+        "npm": "9.5.1"
+    },
+    "keywords": [
+        "guid",
+        "uuid"
+    ],
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "test": "node specs/index.mjs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marchuanv/component.uuid.git"
+    },
+    "bugs": {
+        "url": "https://github.com/marchuanv/component.uuid/issues"
+    },
+    "homepage": "https://github.com/marchuanv/component.uuid#readme",
+    "dependencies": {
+        "component.specs": "marchuanv/component.specs",
+        "utils": "marchuanv/utils"
+    }
+}
