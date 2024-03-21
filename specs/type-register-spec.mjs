@@ -10,9 +10,9 @@ fdescribe('when registering a type', () => {
             expect(typeRegister.Id).toBeInstanceOf(TypeRegisterId);
             expect(typeRegister.type).not.toBeNull();
             expect(typeRegister.type).not.toBeDefined();
-            expect(typeRegister.typeName).toBeDefined();
-            expect(typeRegister.typeName).not.toBeNull();
-            expect(typeRegister.typeName).toBe('undefined');
+            expect(typeRegister.name).toBeDefined();
+            expect(typeRegister.name).not.toBeNull();
+            expect(typeRegister.name).toBe('undefined');
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors when registering an undefined primitive type.`);
