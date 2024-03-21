@@ -1,3 +1,4 @@
+import { Fur } from "./fur.mjs";
 export class Dog {
     /**
      * @returns { String }
@@ -36,16 +37,16 @@ export class Dog {
         super.set({ weight: value }, Number);
     }
     /**
-     * @returns { Food }
+     * @returns { Fur }
     */
-    get food() {
-        return super.get({ food: null }, Food);
+    get fur() {
+        return super.get({ fur: null }, Fur);
     }
     /**
      * @param { Food } value
     */
-    set food(value) {
-        super.set({ food: value }, Food);
+    set fur(value) {
+        super.set({ fur: value }, Fur);
     }
     /**
      * @param { Number } meters

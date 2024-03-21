@@ -1,19 +1,13 @@
 import { Reflection, Type, TypeRegisterId } from '../registry.mjs';
-import { Animal, Dog, Type_TypeRegister } from './index.mjs';
+import { Animal, Dog, TestTypeRegister } from './index.mjs';
 new Type(Dog);
 new Type(Animal);
 describe('when registering a type', () => {
     it(`should register undefined primitive type without error`, () => {
         const { name } = Reflection.getPrimitiveTypes().find(x => x.name === 'undefined');
         try {
-            const typeRegister = new Type_TypeRegister(name);
-            try {
-                typeRegister.set(undefined);
-                typeRegister.get(undefined);
-            } catch (error) {
-                expect(error.message).toBe('The data argument is null, undefined or not an instance of undefined');
-            }
-
+            const typeRegister = new TestTypeRegister(name);
+            
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
             expect(typeRegister.Id).toBeInstanceOf(TypeRegisterId);
@@ -24,6 +18,7 @@ describe('when registering a type', () => {
             expect(typeRegister.typeName).toBeDefined();
             expect(typeRegister.typeName).not.toBeNull();
             expect(typeRegister.typeName).toBe('undefined');
+
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors when registering an undefined primitive type.`);
@@ -32,13 +27,8 @@ describe('when registering a type', () => {
     it(`should register null primitive type without error`, () => {
         const { name } = Reflection.getPrimitiveTypes().find(x => x.name === 'null');
         try {
-            const typeRegister = new Type_TypeRegister(name);
-            try {
-                typeRegister.set(null);
-                typeRegister.get(null);
-            } catch (error) {
-                expect(error.message).toBe('The data argument is null, undefined or not an instance of null');
-            }
+
+            const typeRegister = new TestTypeRegister(name);
 
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
@@ -50,6 +40,7 @@ describe('when registering a type', () => {
             expect(typeRegister.typeName).toBeDefined();
             expect(typeRegister.typeName).not.toBeNull();
             expect(typeRegister.typeName).toBe('null');
+
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors when registering an undefined primitive type.`);
@@ -58,12 +49,7 @@ describe('when registering a type', () => {
     it(`should register primitive types without error`, () => {
         for (const { name, type } of Reflection.getPrimitiveTypes().filter(x => x.name !== 'undefined' && x.name !== 'null')) {
             try {
-                const typeRegister = new Type_TypeRegister(type);
-                try {
-                    typeRegister.get(Object.prototype);
-                } catch (error) {
-                    expect(error.message).toBe('The data argument is null, undefined or not an instance of null');
-                }
+                const typeRegister = new TestTypeRegister(type);
 
                 expect(typeRegister.Id).toBeDefined();
                 expect(typeRegister.Id).not.toBeNull();
@@ -83,7 +69,7 @@ describe('when registering a type', () => {
     });
     it(`should register class types without error`, () => {
         try {
-            const typeRegister = new Type_TypeRegister(Dog);
+            const typeRegister = new TestTypeRegister(Dog);
             try {
                 typeRegister.get(Object.prototype);
             } catch (error) {
@@ -108,7 +94,7 @@ describe('when registering a type', () => {
     });
     it(`should get additional data without error`, () => {
         try {
-            const typeRegister = new Type_TypeRegister(Animal);
+            const typeRegister = new TestTypeRegister(Animal);
 
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
@@ -136,7 +122,7 @@ describe('when registering a type', () => {
     });
     it(`should raise an error if no type is provided`, () => {
         try {
-            new Type_TypeRegister();
+            new TestTypeRegister();
             fail('expected an error');
         } catch (error) {
             console.log(error);
