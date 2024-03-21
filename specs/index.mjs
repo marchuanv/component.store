@@ -1,10 +1,10 @@
 import { Specs } from '../registry.mjs';
-import { Animal } from './classes/animal.mjs';
-import { Dog } from './classes/dog.mjs';
-import { Fur } from './classes/fur.mjs';
-import { ID_TypeRegister } from './classes/id-type-register.mjs';
-import { TestTypeRegister } from './classes/test-type-register.mjs';
-import { TestTypeMemberDecorator } from './classes/test-type-member-decorator.mjs';
-export { Animal, Dog, ID_TypeRegister, TestTypeRegister,  TestTypeMemberDecorator, Fur };
+export { Animal } from './classes/animal.mjs';
+export { Dog } from './classes/dog.mjs';
+export { Fur } from './classes/fur.mjs';
+export { ID_TypeRegister } from './classes/id-type-register.mjs';
+export { TestTypeRegister } from './classes/test-type-register.mjs';
+export { TestTypeMemberDecorator } from './classes/test-type-member-decorator.mjs';
+export { TestStore } from './classes/test-store.mjs';
 const specs = new Specs(60000, './');
 specs.run();

@@ -1,4 +1,4 @@
-import { TypeMemberDecorator, TypeRegisterId } from "../../registry.mjs";
+import { TypeMemberDecorator } from "../../registry.mjs";
 export class TestTypeMemberDecorator extends TypeMemberDecorator {
     /**
      * @param { class } type

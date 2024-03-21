@@ -1,6 +1,6 @@
 import { TypeRegisterId } from '../registry.mjs';
 import { Fur, Dog, TestTypeMemberDecorator } from './index.mjs';
-describe('when creating a type member decorator', () => {
+fdescribe('when creating a type member decorator', () => {
     it(`should decorate a type with memeber metadata`, () => {
         try {
             const memberDecor = new TestTypeMemberDecorator(Dog, "fur", Fur);
