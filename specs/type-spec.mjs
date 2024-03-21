@@ -1,5 +1,4 @@
 
-import { Type } from '../registry.mjs';
 const defaultTypes = [
     String,
     Boolean,
@@ -10,7 +9,6 @@ const defaultTypes = [
     Array,
     Object
 ];
-const type = new Type();
 describe('when getting an undefined type', () => {
     it(`should return the type without error`, () => {
         try {

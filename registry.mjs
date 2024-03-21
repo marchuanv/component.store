@@ -1,6 +1,8 @@
+
+import { GUID, Reflection } from 'utils';
+import { Store } from './lib/store.mjs';
+import { TypeRegister, UnknownType, TypeRegisterId } from './lib/type-register.mjs';
+import { TypeDecorator, TypeDecoratorId } from './lib/type-decorator.mjs';
 export { Specs } from 'component.specs';
-export { GUID, Reflection } from 'utils';
-export { Store } from './lib/store.mjs';
-export { TypeRegister, TypeRegisterId } from './lib/type-decorator.mjs';
-export { TypeMemberDecorator  } from './lib/type-member-decorator.mjs';
-export { Type, UnknownType } from './lib/type-register.mjs';
+export { TypeMemberDecorator, TypeMemberDecoratorId  } from './lib/type-member-decorator.mjs';
+export { Store, TypeRegister, UnknownType, TypeRegisterId, GUID, Reflection, TypeDecorator, TypeDecoratorId }

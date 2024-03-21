@@ -4,7 +4,6 @@ export class TestTypeRegister extends TypeRegister {
      * @param { class | String } type
     */
     constructor(type) {
-        const metadata = {};
-        super(undefined, type, metadata);
+        super(type);
     }
 }
