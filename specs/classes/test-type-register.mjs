@@ -1,9 +1,10 @@
-import { TypeRegister } from "../../registry.mjs";
+import { TypeRegister, TypeRegisterId } from "../../registry.mjs";
 export class TestTypeRegister extends TypeRegister {
     /**
      * @param { class | String } type
+     * @param { TypeRegisterId } typeRegisterId
     */
-    constructor(type) {
-        super(type);
+    constructor(type, typeRegisterId) {
+        super(type, typeRegisterId);
     }
 }
