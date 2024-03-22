@@ -1,26 +1,27 @@
 import crypto from 'node:crypto';
 import { TestStore } from './index.mjs';
+import { Schema } from '../lib/schemas.mjs';
+const schema = new Schema();
 describe('when constructing stores given metadata and secure context', () => {
     it(`should get the same data for the same metadata and secure context`, () => {
         const secureContext = {};
         const metadata = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            const store1 = new TestStore(metadata, secureContext, schema, { data: {} });
-            const store2 = new TestStore(metadata, secureContext, schema, { data: {} });
+            const store1 = new TestStore(metadata, secureContext, schema, {});
+            const store2 = new TestStore(metadata, secureContext, schema, {});
 
-            store1.set({ data: 'Data1' }, secureContext);
-            store2.set({ data: 'Data2' }, secureContext);
+            store1.set({  }, secureContext);
+            store2.set({  }, secureContext);
 
             const data1 = store1.get(secureContext);
             expect(data1).toBeDefined();
             expect(data1).not.toBeNull();
-            expect(data1).toEqual({ data: 'Data2' });
+            expect(data1).toEqual({  });
 
             const data2 = store2.get(secureContext);
             expect(data2).toBeDefined();
             expect(data2).not.toBeNull();
-            expect(data2).toEqual({ data: 'Data2' });
+            expect(data2).toEqual({  });
         } catch (error) {
             console.log(error);
             fail('did not expected any errors');
@@ -30,13 +31,12 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = {};
         const metadata1 = { Id: crypto.randomUUID() };
         const metadata2 = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            const store1 = new TestStore(metadata1, secureContext, schema, { data: {} });
-            const store2 = new TestStore(metadata2, secureContext, schema, { data: {} });
+            const store1 = new TestStore(metadata1, secureContext, schema, { });
+            const store2 = new TestStore(metadata2, secureContext, schema, { });
 
-            store1.set({ data: 'Data1' }, secureContext);
-            store2.set({ data: 'Data2' }, secureContext);
+            store1.set({  }, secureContext);
+            store2.set({  }, secureContext);
 
             const data1 = store1.get(secureContext);
             expect(data1).toBeDefined();
@@ -46,8 +46,8 @@ describe('when constructing stores given metadata and secure context', () => {
             expect(data2).toBeDefined();
             expect(data2).not.toBeNull();
 
-            expect(data1).toEqual({ data: 'Data1' });
-            expect(data2).toEqual({ data: 'Data2' });
+            expect(data1).toEqual({  });
+            expect(data2).toEqual({ });
 
         } catch (error) {
             console.log(error);
@@ -58,14 +58,13 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextA = {};
         const secureContextB = {};
         const metadata = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            const store1 = new TestStore(metadata, secureContextA, schema, { data: {} });
-            const store2 = new TestStore(metadata, secureContextA, schema, { data: {} });
+            const store1 = new TestStore(metadata, secureContextA, schema, {  });
+            const store2 = new TestStore(metadata, secureContextA, schema, {});
             expect(store1).toBe(store2);
 
-            store1.set({ data: 'Data1' }, secureContextA);
-            store2.set({ data: 'Data2' }, secureContextA);
+            store1.set({  }, secureContextA);
+            store2.set({ }, secureContextA);
 
             const data1 = store1.get(secureContextA);
             expect(data1).toBeDefined();
@@ -88,14 +87,13 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextA = {};
         const secureContextB = {};
         const metadata = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            const store1 = new TestStore(metadata, secureContextA, schema, { data: {} });
-            const store2 = new TestStore(metadata, secureContextA, schema, { data: {} });
+            const store1 = new TestStore(metadata, secureContextA, schema, {  });
+            const store2 = new TestStore(metadata, secureContextA, schema, {  });
             expect(store1).toBe(store2);
 
-            store1.set({ data: 'Data1' }, secureContextA);
-            store2.set({ data: 'Data2' }, secureContextA);
+            store1.set({  }, secureContextA);
+            store2.set({ }, secureContextA);
 
             const guid1Data = store1.get(secureContextA);
             expect(guid1Data).toBeDefined();
@@ -117,9 +115,8 @@ describe('when constructing stores given metadata and secure context', () => {
     it(`should raise an error if the secure context is not an object`, () => {
         const invalidSecureContext = '';
         const metadata = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            new TestStore(metadata, invalidSecureContext, schema, { data: {} });
+            new TestStore(metadata, invalidSecureContext, schema, {  });
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
@@ -132,9 +129,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = {};
         const invalidSecureContext = '';
         const metadata = { Id: crypto.randomUUID() };
-        const schema = { data: 'object' };
         try {
-            const store = new TestStore(metadata, secureContext, schema, { data: {} });
+            const store = new TestStore(metadata, secureContext, schema, { });
             store.set('some data', invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {

@@ -1,6 +1,6 @@
 import { GUID, TypeMemberDecorator } from '../registry.mjs';
 import { Dog } from './index.mjs';
-fdescribe('when creating a type decorator', () => {
+describe('when creating a type decorator', () => {
     it(`should decorate a type with member data and retrieve before decorated type provided a typeDecoratorId`, () => {
         try {
             let typeDecor = new TypeMemberDecorator(Dog, null, 'age', Number);
