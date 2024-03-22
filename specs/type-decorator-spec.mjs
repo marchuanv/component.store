@@ -1,38 +1,9 @@
-import { GUID } from '../registry.mjs';
-import { Fur, Dog, TestTypeDecorator } from './index.mjs';
-xdescribe('when creating a type decorator', () => {
-    it(`should decorate a type with member metadata`, () => {
+import { GUID, TypeDecorator } from '../registry.mjs';
+import { Dog } from './index.mjs';
+describe('when creating a type decorator', () => {
+    it(`should decorate a type with member data and retrieve before decorated type provided a typeDecoratorId`, () => {
         try {
-            const typeDecor = new TestTypeDecorator(Dog);
-
-            expect(typeDecor.Id).toBeDefined();
-            expect(typeDecor.Id).not.toBeNull();
-            expect(typeDecor.Id).toBeInstanceOf(GUID);
-
-            expect(typeDecor.type).toBeDefined();
-            expect(typeDecor.type).not.toBeNull();
-            expect(typeDecor.type).toBe(Dog);
-            
-            expect(typeDecor.name).toBeDefined();
-            expect(typeDecor.name).not.toBeNull();
-            expect(typeDecor.name).toBe(Dog.name);
-
-            expect(typeDecor.isClass).toBeDefined();
-            expect(typeDecor.isClass).not.toBeNull();
-            expect(typeDecor.isClass).toBeTrue();
-
-            expect(typeDecor.isPrimitive).toBeDefined();
-            expect(typeDecor.isPrimitive).not.toBeNull();
-            expect(typeDecor.isPrimitive).toBeFalse();
-
-        } catch (error) {
-            console.log(error);
-            fail(`did not expected any errors `);
-        }
-    });
-    it(`should get existing type with member metadata`, () => {
-        try {
-            let typeDecor = new TestTypeDecorator(Dog);
+            let typeDecor = new TypeDecorator(Dog);
             const originalId = typeDecor.Id;
 
             expect(typeDecor.Id).toBeDefined();
@@ -42,7 +13,7 @@ xdescribe('when creating a type decorator', () => {
             expect(typeDecor.type).toBeDefined();
             expect(typeDecor.type).not.toBeNull();
             expect(typeDecor.type).toBe(Dog);
-            
+
             expect(typeDecor.name).toBeDefined();
             expect(typeDecor.name).not.toBeNull();
             expect(typeDecor.name).toBe(Dog.name);
@@ -55,7 +26,7 @@ xdescribe('when creating a type decorator', () => {
             expect(typeDecor.isPrimitive).not.toBeNull();
             expect(typeDecor.isPrimitive).toBeFalse();
 
-            typeDecor = new TestTypeDecorator(null, originalId);
+            typeDecor = new TypeDecorator(null, originalId);
 
             expect(typeDecor.Id).toBeDefined();
             expect(typeDecor.Id).not.toBeNull();
@@ -64,7 +35,7 @@ xdescribe('when creating a type decorator', () => {
             expect(typeDecor.type).toBeDefined();
             expect(typeDecor.type).not.toBeNull();
             expect(typeDecor.type).toBe(Dog);
-            
+
             expect(typeDecor.name).toBeDefined();
             expect(typeDecor.name).not.toBeNull();
             expect(typeDecor.name).toBe(Dog.name);
@@ -77,7 +48,7 @@ xdescribe('when creating a type decorator', () => {
             expect(typeDecor.isPrimitive).not.toBeNull();
             expect(typeDecor.isPrimitive).toBeFalse();
 
-
+            expect(typeDecor.Id).toBe(originalId);
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors `);

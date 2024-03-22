@@ -1,30 +1,54 @@
-import { TypeRegisterId } from '../registry.mjs';
-import { Fur, Dog, TestTypeMemberDecorator } from './index.mjs';
-xdescribe('when creating a type member decorator', () => {
-    it(`should decorate a type with memeber metadata`, () => {
+import { GUID, TypeMemberDecorator } from '../registry.mjs';
+import { Dog } from './index.mjs';
+describe('when creating a type decorator', () => {
+    it(`should decorate a type with member data and retrieve before decorated type provided a typeDecoratorId`, () => {
         try {
-            const memberDecor = new TestTypeMemberDecorator(Dog, "fur", Fur);
+            let typeDecor = new TypeMemberDecorator(Dog, null, 'age', Number);
+            const originalId = typeDecor.Id;
 
-            expect(memberDecor.Id).toBeDefined();
-            expect(memberDecor.Id).not.toBeNull();
-            expect(memberDecor.Id).toBeInstanceOf(TypeRegisterId);
+            expect(typeDecor.Id).toBeDefined();
+            expect(typeDecor.Id).not.toBeNull();
+            expect(typeDecor.Id).toBeInstanceOf(GUID);
 
-            expect(memberDecor.type).toBeDefined();
-            expect(memberDecor.type).not.toBeNull();
-            expect(memberDecor.type).toBe(Dog);
+            expect(typeDecor.type).toBeDefined();
+            expect(typeDecor.type).not.toBeNull();
+            expect(typeDecor.type).toBe(Dog);
 
-            expect(memberDecor.typeName).toBeDefined();
-            expect(memberDecor.typeName).not.toBeNull();
-            expect(memberDecor.typeName).toBe(Dog.name);
+            expect(typeDecor.name).toBeDefined();
+            expect(typeDecor.name).not.toBeNull();
+            expect(typeDecor.name).toBe(Dog.name);
 
-            expect(memberDecor.memberName).toBeDefined();
-            expect(memberDecor.memberName).not.toBeNull();
-            expect(memberDecor.memberName).toBe('fur');
+            expect(typeDecor.isClass).toBeDefined();
+            expect(typeDecor.isClass).not.toBeNull();
+            expect(typeDecor.isClass).toBeTrue();
 
-            expect(memberDecor.memberType).toBeDefined();
-            expect(memberDecor.memberType).not.toBeNull();
-            expect(memberDecor.memberType).toBe(Fur);
+            expect(typeDecor.isPrimitive).toBeDefined();
+            expect(typeDecor.isPrimitive).not.toBeNull();
+            expect(typeDecor.isPrimitive).toBeFalse();
 
+            typeDecor = new TypeMemberDecorator(null, originalId);
+
+            expect(typeDecor.Id).toBeDefined();
+            expect(typeDecor.Id).not.toBeNull();
+            expect(typeDecor.Id).toBeInstanceOf(GUID);
+
+            expect(typeDecor.type).toBeDefined();
+            expect(typeDecor.type).not.toBeNull();
+            expect(typeDecor.type).toBe(Dog);
+
+            expect(typeDecor.name).toBeDefined();
+            expect(typeDecor.name).not.toBeNull();
+            expect(typeDecor.name).toBe(Dog.name);
+
+            expect(typeDecor.isClass).toBeDefined();
+            expect(typeDecor.isClass).not.toBeNull();
+            expect(typeDecor.isClass).toBeTrue();
+
+            expect(typeDecor.isPrimitive).toBeDefined();
+            expect(typeDecor.isPrimitive).not.toBeNull();
+            expect(typeDecor.isPrimitive).toBeFalse();
+
+            expect(typeDecor.Id).toBe(originalId);
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors `);

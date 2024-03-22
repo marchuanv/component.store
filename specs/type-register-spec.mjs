@@ -1,14 +1,14 @@
-import { Reflection, PrimitiveTypeRegister, TypeRegisterId } from '../registry.mjs';
-import { Dog, TestTypeRegister } from './index.mjs';
+import { GUID, Reflection, TypeRegister } from '../registry.mjs';
+import { Dog } from './index.mjs';
 describe('when registering a type', () => {
     it(`should register undefined primitive type without error`, () => {
         const { name } = Reflection.getPrimitiveTypes().find(x => x.name === 'undefined');
         try {
-            const typeRegister = new TestTypeRegister(name);
+            const typeRegister = new TypeRegister(name);
 
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
-            expect(typeRegister.Id).toBeInstanceOf(String);
+            expect(typeRegister.Id).toBeInstanceOf(GUID);
 
             expect(typeRegister.type).not.toBeDefined();
             expect(typeRegister.type).not.toBeNull();
@@ -33,12 +33,12 @@ describe('when registering a type', () => {
     it(`should register null primitive type without error`, () => {
         const { name } = Reflection.getPrimitiveTypes().find(x => x.name === 'null');
         try {
-            const typeRegister = new TestTypeRegister(name);
-            
+            const typeRegister = new TypeRegister(name);
+
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
-            expect(typeRegister.Id).toBeInstanceOf(String);
-            
+            expect(typeRegister.Id).toBeInstanceOf(GUID);
+
             expect(typeRegister.type).toBeDefined();
             expect(typeRegister.type).toBeNull();
 
@@ -62,11 +62,11 @@ describe('when registering a type', () => {
     it(`should register primitive types without error`, () => {
         for (const { name, type } of Reflection.getPrimitiveTypes().filter(x => x.name !== 'undefined' && x.name !== 'null')) {
             try {
-                const typeRegister = new TestTypeRegister(type);
+                const typeRegister = new TypeRegister(type);
 
                 expect(typeRegister.Id).toBeDefined();
                 expect(typeRegister.Id).not.toBeNull();
-                expect(typeRegister.Id).toBeInstanceOf(String);
+                expect(typeRegister.Id).toBeInstanceOf(GUID);
 
                 expect(typeRegister.type).toBeDefined();
                 expect(typeRegister.type).not.toBeNull();
@@ -79,7 +79,7 @@ describe('when registering a type', () => {
                 expect(typeRegister.isClass).toBeDefined();
                 expect(typeRegister.isClass).not.toBeNull();
                 expect(typeRegister.isClass).toBeFalse();
-    
+
                 expect(typeRegister.isPrimitive).toBeDefined();
                 expect(typeRegister.isPrimitive).not.toBeNull();
                 expect(typeRegister.isPrimitive).toBeTrue();
@@ -92,20 +92,20 @@ describe('when registering a type', () => {
     });
     it(`should register class types without error`, () => {
         try {
-            const typeRegister = new TestTypeRegister(Dog);
-            
+            const typeRegister = new TypeRegister(Dog);
+
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
-            expect(typeRegister.Id).toBeInstanceOf(String);
-            
+            expect(typeRegister.Id).toBeInstanceOf(GUID);
+
             expect(typeRegister.type).toBeDefined();
             expect(typeRegister.type).not.toBeNull();
             expect(typeRegister.type).toBe(Dog);
-            
+
             expect(typeRegister.name).toBeDefined();
             expect(typeRegister.name).not.toBeNull();
             expect(typeRegister.name).toBe(Dog.name);
-            
+
             expect(typeRegister.isClass).toBeDefined();
             expect(typeRegister.isClass).not.toBeNull();
             expect(typeRegister.isClass).toBeTrue();
@@ -121,20 +121,20 @@ describe('when registering a type', () => {
     });
     it(`should reconstruct registered class without error`, () => {
         try {
-            const typeRegister = new TestTypeRegister(Dog);
-            
+            const typeRegister = new TypeRegister(Dog);
+
             expect(typeRegister.Id).toBeDefined();
             expect(typeRegister.Id).not.toBeNull();
-            expect(typeRegister.Id).toBeInstanceOf(String);
-            
+            expect(typeRegister.Id).toBeInstanceOf(GUID);
+
             expect(typeRegister.type).toBeDefined();
             expect(typeRegister.type).not.toBeNull();
             expect(typeRegister.type).toBe(Dog);
-            
+
             expect(typeRegister.name).toBeDefined();
             expect(typeRegister.name).not.toBeNull();
             expect(typeRegister.name).toBe(Dog.name);
-            
+
             expect(typeRegister.isClass).toBeDefined();
             expect(typeRegister.isClass).not.toBeNull();
             expect(typeRegister.isClass).toBeTrue();
@@ -143,8 +143,8 @@ describe('when registering a type', () => {
             expect(typeRegister.isPrimitive).not.toBeNull();
             expect(typeRegister.isPrimitive).toBeFalse();
 
-            const sameTypeRegister = new TypeRegisterId(typeRegister.Id);
-            
+            const sameTypeRegister = new TypeRegister(null, typeRegister.Id);
+
             expect(sameTypeRegister.Id).toBe(typeRegister.Id);
             expect(sameTypeRegister.type).toBe(typeRegister.type);
             expect(sameTypeRegister.name).toBe(typeRegister.name);
@@ -158,7 +158,7 @@ describe('when registering a type', () => {
     });
     it(`should raise an error if no type is provided`, () => {
         try {
-            new TestTypeRegister();
+            new TypeRegister();
             fail('expected an error');
         } catch (error) {
             console.log(error);
