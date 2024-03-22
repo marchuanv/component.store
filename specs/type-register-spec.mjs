@@ -162,7 +162,7 @@ describe('when registering a type', () => {
             fail('expected an error');
         } catch (error) {
             console.log(error);
-            expect(error.message).toBe(`could not find or determine the type.`);
+            expect(error.message).toBe(`The type argument is unknown.`);
         }
     });
 });
