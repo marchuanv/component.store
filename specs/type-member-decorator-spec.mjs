@@ -26,6 +26,14 @@ describe('when creating a type decorator', () => {
             expect(typeDecor.isPrimitive).not.toBeNull();
             expect(typeDecor.isPrimitive).toBeFalse();
 
+            expect(typeDecor.memberName).toBeDefined();
+            expect(typeDecor.memberName).not.toBeNull();
+            expect(typeDecor.memberName).toBe('age');
+
+            expect(typeDecor.memberType).toBeDefined();
+            expect(typeDecor.memberType).not.toBeNull();
+            expect(typeDecor.memberType).toBe(Number);
+
             typeDecor = new TypeMemberDecorator(null, originalId);
 
             expect(typeDecor.Id).toBeDefined();
@@ -47,6 +55,14 @@ describe('when creating a type decorator', () => {
             expect(typeDecor.isPrimitive).toBeDefined();
             expect(typeDecor.isPrimitive).not.toBeNull();
             expect(typeDecor.isPrimitive).toBeFalse();
+
+            expect(typeDecor.memberName).toBeDefined();
+            expect(typeDecor.memberName).not.toBeNull();
+            expect(typeDecor.memberName).toBe('age');
+
+            expect(typeDecor.memberType).toBeDefined();
+            expect(typeDecor.memberType).not.toBeNull();
+            expect(typeDecor.memberType).toBe(Number);
 
             expect(typeDecor.Id).toBe(originalId);
         } catch (error) {
