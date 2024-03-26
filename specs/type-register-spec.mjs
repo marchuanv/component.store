@@ -26,8 +26,7 @@ describe('when registering a type', () => {
             expect(typeRegister.isPrimitive).toBeTrue();
 
         } catch (error) {
-            console.log(error);
-            fail(`did not expected any errors when registering an undefined primitive type.`);
+            fail(`did not expected any errors when registering an undefined primitive type. Error: ${error.message}`);
         }
     });
     it(`should register null primitive type without error`, () => {
@@ -55,8 +54,7 @@ describe('when registering a type', () => {
             expect(typeRegister.isPrimitive).toBeTrue();
 
         } catch (error) {
-            console.log(error);
-            fail(`did not expected any errors when registering an undefined primitive type.`);
+            fail(`did not expected any errors when registering a null primitive type. Error: ${error.message}`);
         }
     });
     it(`should register primitive types without error`, () => {
@@ -85,8 +83,7 @@ describe('when registering a type', () => {
                 expect(typeRegister.isPrimitive).toBeTrue();
 
             } catch (error) {
-                console.log(error);
-                fail(`did not expected any errors when registering ${name}`);
+                fail(`did not expected any errors when registering ${name}. Error: ${error.message}`);
             }
         }
     });
@@ -115,8 +112,7 @@ describe('when registering a type', () => {
             expect(typeRegister.isPrimitive).toBeFalse();
 
         } catch (error) {
-            console.log(error);
-            fail(`did not expected any errors when registering ${Dog.name}`);
+            fail(`did not expected any errors when registering ${Dog.name}. Error: ${error.message}`);
         }
     });
     it(`should reconstruct registered class without error`, () => {
@@ -152,8 +148,7 @@ describe('when registering a type', () => {
             expect(sameTypeRegister.isPrimitive).toBe(typeRegister.isPrimitive);
 
         } catch (error) {
-            console.log(error);
-            fail(`did not expected any errors when registering ${Dog.name}`);
+            fail(`did not expected any errors when registering ${Dog.name}. Error: ${error.message}`);
         }
     });
     it(`should raise an error if no type is provided`, () => {
