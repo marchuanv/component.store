@@ -1,6 +1,6 @@
 import { GUID, TypeDecorator } from '../registry.mjs';
 import { Dog } from './index.mjs';
-describe('when creating a type decorator', () => {
+fdescribe('when creating a type decorator', () => {
     it(`should decorate a type with member data and retrieve before decorated type provided a typeDecoratorId`, () => {
         try {
             let typeDecor = new TypeDecorator(Dog);
@@ -48,7 +48,10 @@ describe('when creating a type decorator', () => {
             expect(typeDecor.isPrimitive).not.toBeNull();
             expect(typeDecor.isPrimitive).toBeFalse();
 
+            expect(typeDecor.members.length).toBeGreaterThan(0);
+
             expect(typeDecor.Id).toBe(originalId);
+
         } catch (error) {
             console.log(error);
             fail(`did not expected any errors `);
