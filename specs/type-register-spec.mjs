@@ -1,7 +1,7 @@
 import { GUID, Reflection, TypeInfo, TypeRegister } from '../registry.mjs';
 import { Dog } from './index.mjs';
-fdescribe('when registering a type', () => {
-    it(`should register undefined primitive type without error`, () => {
+describe('when registering a type', () => {
+    fit(`should register undefined primitive type without error`, () => {
         const { name } = Reflection.getPrimitiveTypes().find(x => x.name === 'undefined');
         try {
 
@@ -17,9 +17,7 @@ fdescribe('when registering a type', () => {
             expect(typeRegister.typeInfo).not.toBeNull();
             expect(typeRegister.typeInfo).toBeInstanceOf(TypeInfo);
 
-            expect(typeRegister.typeInfo.Id).toBeDefined();
-            expect(typeRegister.typeInfo.Id).not.toBeNull();
-            expect(typeRegister.typeInfo.Id).toBeInstanceOf(GUID);
+            expect(typeRegister.typeInfo).toBe(typeRegister.Id);
 
             expect(typeRegister.typeInfo.type).toBeDefined();
             expect(typeRegister.typeInfo.type).not.toBeNull();
@@ -39,6 +37,7 @@ fdescribe('when registering a type', () => {
 
         } catch (error) {
             fail(`did not expected any errors when registering an undefined primitive type. Error: ${error.message}`);
+            console.log(error.stack);
         }
     });
     it(`should register null primitive type without error`, () => {
@@ -53,14 +52,11 @@ fdescribe('when registering a type', () => {
             expect(typeRegister.Id).not.toBeNull();
             expect(typeRegister.Id).toBeInstanceOf(GUID);
 
-
             expect(typeRegister.typeInfo).toBeDefined();
             expect(typeRegister.typeInfo).not.toBeNull();
             expect(typeRegister.typeInfo).toBeInstanceOf(TypeInfo);
 
-            expect(typeRegister.typeInfo.Id).toBeDefined();
-            expect(typeRegister.typeInfo.Id).not.toBeNull();
-            expect(typeRegister.typeInfo.Id).toBeInstanceOf(GUID);
+            expect(typeRegister.typeInfo).toBe(typeRegister.Id);
 
             expect(typeRegister.typeInfo.type).toBeDefined();
             expect(typeRegister.typeInfo.type).not.toBeNull();
@@ -98,9 +94,7 @@ fdescribe('when registering a type', () => {
                 expect(typeRegister.typeInfo).not.toBeNull();
                 expect(typeRegister.typeInfo).toBeInstanceOf(TypeInfo);
 
-                expect(typeRegister.typeInfo.Id).toBeDefined();
-                expect(typeRegister.typeInfo.Id).not.toBeNull();
-                expect(typeRegister.typeInfo.Id).toBeInstanceOf(GUID);
+                expect(typeRegister.typeInfo).toBe(typeRegister.Id);
 
                 expect(typeRegister.typeInfo.type).toBeDefined();
                 expect(typeRegister.typeInfo.type).not.toBeNull();
@@ -138,9 +132,7 @@ fdescribe('when registering a type', () => {
             expect(typeRegister.typeInfo).not.toBeNull();
             expect(typeRegister.typeInfo).toBeInstanceOf(TypeInfo);
 
-            expect(typeRegister.typeInfo.Id).toBeDefined();
-            expect(typeRegister.typeInfo.Id).not.toBeNull();
-            expect(typeRegister.typeInfo.Id).toBeInstanceOf(GUID);
+            expect(typeRegister.typeInfo).toBe(typeRegister.Id);
 
             expect(typeRegister.typeInfo.type).toBeDefined();
             expect(typeRegister.typeInfo.type).not.toBeNull();
@@ -177,9 +169,7 @@ fdescribe('when registering a type', () => {
             expect(typeRegister.typeInfo).not.toBeNull();
             expect(typeRegister.typeInfo).toBeInstanceOf(TypeInfo);
 
-            expect(typeRegister.typeInfo.Id).toBeDefined();
-            expect(typeRegister.typeInfo.Id).not.toBeNull();
-            expect(typeRegister.typeInfo.Id).toBeInstanceOf(GUID);
+            expect(typeRegister.typeInfo).toBe(typeRegister.Id);
 
             expect(typeRegister.typeInfo.type).toBeDefined();
             expect(typeRegister.typeInfo.type).not.toBeNull();

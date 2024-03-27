@@ -1,9 +1,11 @@
-import { GUID, TypeDecorator } from '../registry.mjs';
+import { GUID, TypeDecorator, TypeInfo } from '../registry.mjs';
 import { Dog } from './index.mjs';
 describe('when creating a type decorator', () => {
     it(`should decorate a type with member data and retrieve before decorated type provided a typeDecoratorId`, () => {
         try {
-            let typeDecor = new TypeDecorator(Dog);
+            const typeInfo = new TypeInfo({ type: Dog });
+
+            let typeDecor = new TypeDecorator(typeInfo);
             const originalId = typeDecor.Id;
 
             expect(typeDecor.Id).toBeDefined();
@@ -53,8 +55,8 @@ describe('when creating a type decorator', () => {
             expect(typeDecor.Id).toBe(originalId);
 
         } catch (error) {
+            fail(`did not expected any errors. Error: ${error.message}`);
             console.log(error);
-            fail(`did not expected any errors `);
         }
     });
 });

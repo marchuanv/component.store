@@ -1,23 +1,20 @@
-import { GUID, Store } from '../registry.mjs';
+import { GUID, Schema, Store, TypeInfo } from '../registry.mjs';
 describe('when constructing stores given metadata and secure context', () => {
-    class TestDataSchema extends Store {
-        /**
-         * @param { GUID } Id identifier of schema.
-         * @param { Object } secureContext allows a secure context for getting or setting data from or to the store.
-        */
-        constructor(Id, secureContext) {
-            super(Id, [{
-                key: 'message',
-                type: String
-            }], secureContext);
+    class TestSchema extends Schema {
+        constructor() {
+            super([{
+                name: 'message',
+                typeInfo: new TypeInfo({ type: String })
+            }]);
         }
     }
+    const schema = new TestSchema();
     it(`should get the same data for the same metadata and secure context`, () => {
         const secureContext = {};
         const Id = new GUID();
         try {
-            const store1 = new TestDataSchema(Id, secureContext);
-            const store2 = new TestDataSchema(Id, secureContext);
+            const store1 = new Store(Id, schema, secureContext);
+            const store2 = new Store(Id, schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -41,8 +38,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const Id1 = new GUID();
         const Id2 = new GUID();
         try {
-            const store1 = new TestDataSchema(Id1, secureContext);
-            const store2 = new TestDataSchema(Id2, secureContext);
+            const store1 = new Store(Id1, schema, secureContext);
+            const store2 = new Store(Id2, schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -66,7 +63,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = {};
         const Id = new GUID();
         try {
-            const store = new TestDataSchema(Id, secureContext);
+            const store = new Store(Id, schema, secureContext);
             store.set({ message: 'Hello World' }, secureContext);
             const data = store.get(secureContext);
             expect(data).toBeDefined();
@@ -83,8 +80,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextB = {};
         const Id = new GUID();
         try {
-            const store1 = new TestDataSchema(Id, secureContextA);
-            const store2 = new TestDataSchema(Id, secureContextA);
+            const store1 = new Store(Id, schema, secureContextA);
+            const store2 = new Store(Id, schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -112,8 +109,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextB = {};
         const Id = new GUID();
         try {
-            const store1 = new TestDataSchema(Id, secureContextA);
-            const store2 = new TestDataSchema(Id, secureContextA);
+            const store1 = new Store(Id, schema, secureContextA);
+            const store2 = new Store(Id, schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -140,7 +137,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const invalidSecureContext = '';
         const Id = new GUID();
         try {
-            new TestDataSchema(Id, invalidSecureContext);
+            new Store(Id, schema, invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
@@ -154,7 +151,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const invalidSecureContext = '';
         const Id = new GUID();
         try {
-            const store = new TestDataSchema(Id, secureContext);
+            const store = new Store(Id, schema, secureContext);
             store.set('some data', invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
@@ -168,28 +165,24 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = {};
         const Id = new GUID();
         try {
-            const store = new TestDataSchema(Id, secureContext);
+            const store = new Store(Id, schema, secureContext);
             store.set({ wrongProperty: 'Hello World' }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
-            expect(error).toBeDefined();
-            expect(error).not.toBeNull();
-            expect(error.message.replace(/\s/g, '')).toBe(`->Themessagepropertydoesnotmatchtheschemadefinition`);
+            expect(error.message).toBe(`obj does not have the message property.`);
         }
     });
     it(`should raise an error when setting data fields that do not match the schema types.`, () => {
         const secureContext = {};
         const Id = new GUID();
         try {
-            const store = new TestDataSchema(Id, secureContext);
+            const store = new Store(Id, schema, secureContext);
             store.set({ message: { shouldnotbeobject: {} } }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
-            expect(error).toBeDefined();
-            expect(error).not.toBeNull();
-            expect(error.message.replace(/\s/g, '')).toBe(`->Themessagepropertydoesnotmatchtheschemadefinition`);
+            expect(error.message).toBe(`message value is not of type String`);
         }
     });
 });
