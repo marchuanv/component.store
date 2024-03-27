@@ -175,7 +175,7 @@ describe('when constructing stores given metadata and secure context', () => {
             console.log(error);
             expect(error).toBeDefined();
             expect(error).not.toBeNull();
-            expect(error.message).toBe(`properties are not in the schema.`);
+            expect(error.message.replace(/\s/g, '')).toBe(`->Themessagepropertydoesnotmatchtheschemadefinition`);
         }
     });
     it(`should raise an error when setting data fields that do not match the schema types.`, () => {
@@ -189,7 +189,7 @@ describe('when constructing stores given metadata and secure context', () => {
             console.log(error);
             expect(error).toBeDefined();
             expect(error).not.toBeNull();
-            expect(error.message).toBe(`property types do not match schema.`);
+            expect(error.message.replace(/\s/g, '')).toBe(`->Themessagepropertydoesnotmatchtheschemadefinition`);
         }
     });
 });
