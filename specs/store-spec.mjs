@@ -13,8 +13,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = new SecureContext();
         const Id = new GUID();
         try {
-            const store1 = new Store(Id, schema, secureContext);
-            const store2 = new Store(Id, schema, secureContext);
+            const store1 = new Store(schema, secureContext);
+            const store2 = new Store(schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -38,8 +38,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const Id1 = new GUID();
         const Id2 = new GUID();
         try {
-            const store1 = new Store(Id1, schema, secureContext);
-            const store2 = new Store(Id2, schema, secureContext);
+            const store1 = new Store(schema, secureContext);
+            const store2 = new Store(schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -63,7 +63,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = new SecureContext();
         const Id = new GUID();
         try {
-            const store = new Store(Id, schema, secureContext);
+            const store = new Store(schema, secureContext);
             store.set({ message: 'Hello World' }, secureContext);
             const data = store.get(secureContext);
             expect(data).toBeDefined();
@@ -80,8 +80,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextB = {};
         const Id = new GUID();
         try {
-            const store1 = new Store(Id, schema, secureContextA);
-            const store2 = new Store(Id, schema, secureContextA);
+            const store1 = new Store(schema, secureContextA);
+            const store2 = new Store(schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -109,8 +109,8 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContextB = {};
         const Id = new GUID();
         try {
-            const store1 = new Store(Id, schema, secureContextA);
-            const store2 = new Store(Id, schema, secureContextA);
+            const store1 = new Store(schema, secureContextA);
+            const store2 = new Store(schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -137,7 +137,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const invalidSecureContext = '';
         const Id = new GUID();
         try {
-            new Store(Id, schema, invalidSecureContext);
+            new Store(schema, invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
@@ -151,7 +151,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const invalidSecureContext = '';
         const Id = new GUID();
         try {
-            const store = new Store(Id, schema, secureContext);
+            const store = new Store(schema, secureContext);
             store.set('some data', invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
@@ -165,7 +165,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = new SecureContext();
         const Id = new GUID();
         try {
-            const store = new Store(Id, schema, secureContext);
+            const store = new Store(schema, secureContext);
             store.set({ wrongProperty: 'Hello World' }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
@@ -177,7 +177,7 @@ describe('when constructing stores given metadata and secure context', () => {
         const secureContext = new SecureContext();
         const Id = new GUID();
         try {
-            const store = new Store(Id, schema, secureContext);
+            const store = new Store(schema, secureContext);
             store.set({ message: { shouldnotbeobject: {} } }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
