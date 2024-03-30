@@ -1,4 +1,4 @@
-import { GUID, Schema, Store, TypeInfo } from '../registry.mjs';
+import { GUID, Schema, Store, TypeInfo, SecureContext } from '../registry.mjs';
 describe('when constructing stores given metadata and secure context', () => {
     class TestSchema extends Schema {
         constructor() {
@@ -10,7 +10,7 @@ describe('when constructing stores given metadata and secure context', () => {
     }
     const schema = new TestSchema();
     it(`should get the same data for the same metadata and secure context`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const Id = new GUID();
         try {
             const store1 = new Store(Id, schema, secureContext);
@@ -34,7 +34,7 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it(`should get different data for different metadata and the same secure context`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const Id1 = new GUID();
         const Id2 = new GUID();
         try {
@@ -60,7 +60,7 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it(`should store and retrieve objects`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const Id = new GUID();
         try {
             const store = new Store(Id, schema, secureContext);
@@ -147,7 +147,7 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it(`should raise an error when getting data and the secure context is not an object`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const invalidSecureContext = '';
         const Id = new GUID();
         try {
@@ -162,7 +162,7 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it(`should raise an error when setting data fields that do not match the schema.`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const Id = new GUID();
         try {
             const store = new Store(Id, schema, secureContext);
@@ -174,7 +174,7 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it(`should raise an error when setting data fields that do not match the schema types.`, () => {
-        const secureContext = {};
+        const secureContext = new SecureContext();
         const Id = new GUID();
         try {
             const store = new Store(Id, schema, secureContext);
