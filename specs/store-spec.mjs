@@ -8,13 +8,13 @@ describe('when constructing stores given metadata and secure context', () => {
             }]);
         }
     }
+    class TestStore extends Store {}
     const schema = new TestSchema();
     it(`should get the same data for the same metadata and secure context`, () => {
         const secureContext = new SecureContext();
-        const Id = new GUID();
         try {
-            const store1 = new Store(schema, secureContext);
-            const store2 = new Store(schema, secureContext);
+            const store1 = new TestStore(schema, secureContext);
+            const store2 = new TestStore(schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -35,11 +35,9 @@ describe('when constructing stores given metadata and secure context', () => {
     });
     it(`should get different data for different metadata and the same secure context`, () => {
         const secureContext = new SecureContext();
-        const Id1 = new GUID();
-        const Id2 = new GUID();
         try {
-            const store1 = new Store(schema, secureContext);
-            const store2 = new Store(schema, secureContext);
+            const store1 = new TestStore(schema, secureContext);
+            const store2 = new TestStore(schema, secureContext);
 
             store1.set({ message: 'Hello World A' }, secureContext);
             store2.set({ message: 'Hello World B' }, secureContext);
@@ -61,9 +59,8 @@ describe('when constructing stores given metadata and secure context', () => {
     });
     it(`should store and retrieve objects`, () => {
         const secureContext = new SecureContext();
-        const Id = new GUID();
         try {
-            const store = new Store(schema, secureContext);
+            const store = new TestStore(schema, secureContext);
             store.set({ message: 'Hello World' }, secureContext);
             const data = store.get(secureContext);
             expect(data).toBeDefined();
@@ -76,12 +73,11 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it('should raise an error when getting data with a different secure context', () => {
-        const secureContextA = {};
-        const secureContextB = {};
-        const Id = new GUID();
+        const secureContextA = new SecureContext();
+        const secureContextB = new SecureContext();
         try {
-            const store1 = new Store(schema, secureContextA);
-            const store2 = new Store(schema, secureContextA);
+            const store1 = new TestStore(schema, secureContextA);
+            const store2 = new TestStore(schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -105,12 +101,11 @@ describe('when constructing stores given metadata and secure context', () => {
         }
     });
     it('should raise an error when setting data with a different secure context', () => {
-        const secureContextA = {};
-        const secureContextB = {};
-        const Id = new GUID();
+        const secureContextA = new SecureContext();
+        const secureContextB = new SecureContext();
         try {
-            const store1 = new Store(schema, secureContextA);
-            const store2 = new Store(schema, secureContextA);
+            const store1 = new TestStore(schema, secureContextA);
+            const store2 = new TestStore(schema, secureContextA);
             expect(store1).toBe(store2);
 
             store1.set({ message: 'Hello World A' }, secureContextA);
@@ -135,23 +130,21 @@ describe('when constructing stores given metadata and secure context', () => {
     });
     it(`should raise an error if the secure context is not an object`, () => {
         const invalidSecureContext = '';
-        const Id = new GUID();
         try {
-            new Store(schema, invalidSecureContext);
+            new TestStore(schema, invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
             expect(error).toBeDefined();
             expect(error).not.toBeNull();
-            expect(error.message).toBe(`The secureContext argument is undefined, null, or not an object.`);
+            expect(error.message).toBe(`The secureContext argument is undefined, null, or not a ${SecureContext.name}.`);
         }
     });
     it(`should raise an error when getting data and the secure context is not an object`, () => {
         const secureContext = new SecureContext();
         const invalidSecureContext = '';
-        const Id = new GUID();
         try {
-            const store = new Store(schema, secureContext);
+            const store = new TestStore(schema, secureContext);
             store.set('some data', invalidSecureContext);
             fail('expected an error to be raised.');
         } catch (error) {
@@ -163,9 +156,8 @@ describe('when constructing stores given metadata and secure context', () => {
     });
     it(`should raise an error when setting data fields that do not match the schema.`, () => {
         const secureContext = new SecureContext();
-        const Id = new GUID();
         try {
-            const store = new Store(schema, secureContext);
+            const store = new TestStore(schema, secureContext);
             store.set({ wrongProperty: 'Hello World' }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
@@ -175,14 +167,13 @@ describe('when constructing stores given metadata and secure context', () => {
     });
     it(`should raise an error when setting data fields that do not match the schema types.`, () => {
         const secureContext = new SecureContext();
-        const Id = new GUID();
         try {
-            const store = new Store(schema, secureContext);
+            const store = new TestStore(schema, secureContext);
             store.set({ message: { shouldnotbeobject: {} } }, secureContext);
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
-            expect(error.message).toBe(`message value is not of type String`);
+            expect(error.message).toBe(`obj does not have the message property.`);
         }
     });
 });
