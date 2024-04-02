@@ -1,4 +1,4 @@
-import { GUID, Schema, Store, TypeInfo, SecureContext } from '../registry.mjs';
+import { Schema, SecureContext, Store, TypeInfo } from '../registry.mjs';
 describe('when constructing stores given metadata and secure context', () => {
     class TestSchema extends Schema {
         constructor() {
@@ -8,7 +8,7 @@ describe('when constructing stores given metadata and secure context', () => {
             }]);
         }
     }
-    class TestStore extends Store {}
+    class TestStore extends Store { }
     const schema = new TestSchema();
     it(`should get the same data for the same metadata and secure context`, () => {
         const secureContext = new SecureContext();
@@ -162,7 +162,7 @@ describe('when constructing stores given metadata and secure context', () => {
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
-            expect(error.message).toBe(`obj does not have the message property.`);
+            expect(error.message).toBe(`data does not have the message property.`);
         }
     });
     it(`should raise an error when setting data fields that do not match the schema types.`, () => {
@@ -173,7 +173,7 @@ describe('when constructing stores given metadata and secure context', () => {
             fail('expected an error to be raised.');
         } catch (error) {
             console.log(error);
-            expect(error.message).toBe(`obj does not have the message property.`);
+            expect(error.message).toBe(`data does not have the message property.`);
         }
     });
 });
